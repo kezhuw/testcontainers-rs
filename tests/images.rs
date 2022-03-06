@@ -245,6 +245,17 @@ async fn sqs_list_queues() {
 }
 
 #[test]
+#[should_panic(expected = "Healthcheck reports unhealthy")]
+fn wait_for_healthy() {
+    let docker = clients::Cli::default();
+    let image = images::generic::GenericImage::new("apache/bookkeeper", "4.14.3")
+        .with_env_var("BOOKIE_HTTP_PORT", "8080")
+        .with_env_var("BK_zkServers", "127.0.0.1:2181")
+        .with_wait_for(WaitFor::Healthcheck);
+    docker.run(image);
+}
+
+#[test]
 fn generic_image() {
     let _ = pretty_env_logger::try_init();
     let docker = clients::Cli::default();

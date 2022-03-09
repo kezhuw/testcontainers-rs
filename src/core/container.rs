@@ -35,6 +35,8 @@ pub struct Container<'d, I: Image> {
     client_lifetime: PhantomData<&'d ()>,
 }
 
+unsafe impl<I: Image> Send for Container<'_, I> {}
+
 impl<'d, I> fmt::Debug for Container<'d, I>
 where
     I: fmt::Debug + Image,

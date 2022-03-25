@@ -17,6 +17,7 @@ pub struct GenericImage {
     wait_for: Vec<WaitFor>,
     entrypoint: Option<String>,
     healthcheck: Option<Healthcheck>,
+    exposed_ports: Vec<u16>,
 }
 
 impl Default for GenericImage {
@@ -29,6 +30,7 @@ impl Default for GenericImage {
             wait_for: Vec::new(),
             entrypoint: None,
             healthcheck: None,
+            exposed_ports: Vec::new(),
         }
     }
 }
@@ -66,6 +68,11 @@ impl GenericImage {
         self.healthcheck = Some(healthcheck);
         self
     }
+
+    pub fn with_exposed_port(mut self, port: u16) -> Self {
+        self.exposed_ports.push(port);
+        self
+    }
 }
 
 impl Image for GenericImage {
@@ -97,6 +104,10 @@ impl Image for GenericImage {
 
     fn healthcheck(&self) -> Option<Healthcheck> {
         self.healthcheck.clone()
+    }
+
+    fn expose_ports(&self) -> Vec<u16> {
+        self.exposed_ports.clone()
     }
 }
 

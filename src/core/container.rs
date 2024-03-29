@@ -171,6 +171,14 @@ where
 
         self.docker_client.rm(&self.id)
     }
+
+    pub fn stdout(&self) -> LogStream {
+        self.docker_client.stdout_logs(self.id())
+    }
+
+    pub fn stderr(&self) -> LogStream {
+        self.docker_client.stderr_logs(self.id())
+    }
 }
 
 /// The destructor implementation for a Container.

@@ -36,7 +36,7 @@ impl<'d> LogStreamAsync<'d> {
     }
 }
 
-pub(crate) struct LogStream {
+pub struct LogStream {
     inner: Box<dyn Read>,
 }
 

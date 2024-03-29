@@ -7,6 +7,7 @@ pub use self::{
     image::{
         ContainerState, ExecCommand, Healthcheck, Image, ImageArgs, Port, RunnableImage, WaitFor,
     },
+    logs::{LogStream, WaitError},
 };
 
 #[cfg(feature = "experimental")]
